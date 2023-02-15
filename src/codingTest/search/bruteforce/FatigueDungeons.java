@@ -2,68 +2,32 @@ package src.codingTest.search.bruteforce;
 
 public class FatigueDungeons {
 
-    static void reSetSearch(boolean[] isSearch, int n){
-        for(int i = 0; i<n; i++){
-            isSearch[i] = false;
-        }
-    }
+    static int max = 0;
 
-    static int maxNumber(int[] arr){
-        int max = 0;
+    static int bruteForce(int[][] dungeons, int depth, boolean[] visited, int k, int len, int x){
 
-        for(int i = 0; i<arr.length; i++){
-            if(max < arr[i]) max = arr[i];
+        if(depth == len){
+            if(x > max) max = x;
+            return x;
         }
 
-        return max;
-    }
-
-    static void bruteForce(int[][] dungeons, boolean[] isSearch, int[] resultArr, int k, int x, int cnt){
-
-        if(cnt == dungeons.length){
-            return;
-        }else{
-            System.out.println("Test");
-        }
-
-        for (int i = 0; i<dungeons.length; i++){
-            if(!(isSearch[i])){ // false일 때만 조건 탐색한다.
-                if(dungeons[i][0] <= k){ // 필요도가 높은 경우
-                    k -= dungeons[i][1]; // 전체 필요도 - 소모 필요도
-                    isSearch[i] = true;
-                    resultArr[x]++;
-                    bruteForce(dungeons, isSearch, resultArr, k, x, cnt++);
-                    isSearch[i] = false;
-                }
+        for (int i = 0; i<len; i++){
+            if(!visited[i] && dungeons[i][0] <= k){
+                visited[i] = true;
+                bruteForce(dungeons, depth+1, visited, k-dungeons[i][1], len, x+1);
+                visited[i] = false;
             }
+
+            if(x > max) max = x;
         }
+        return x;
     }
 
     static int solution(int k, int[][] dungeons) {
         int len = dungeons.length;
-        int userFatigue = k;
-        int cnt = 0;
-
-        boolean[] isSearch = new boolean[len];
-        int[] resultArr = new int[len];
-
-        // 던전 피로도 조사 여부
-        reSetSearch(isSearch, len);
-
-
-        for(int i = 0; i<len; i++){
-            k = userFatigue;
-            reSetSearch(isSearch, len);
-
-            if(dungeons[i][0] <= k){ // 필요도가 높은 경우
-                 k -= dungeons[i][1]; // 전체 필요도 - 소모 필요도
-                 isSearch[i] = true;
-                 resultArr[i]++;
-                 bruteForce(dungeons, isSearch, resultArr, k, i, cnt++);
-            }
-        }
-
-        return maxNumber(resultArr);
+        boolean[] visited = new boolean[dungeons.length];
+        bruteForce(dungeons, 0, visited, k, len, 0);
+        return max;
 
     }
 
