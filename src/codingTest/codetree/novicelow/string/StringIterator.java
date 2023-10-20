@@ -6,7 +6,8 @@ public class StringIterator {
 
     public static void main(String[] args) {
 //        subString();
-        runLengthEncoding2();
+//        runLengthEncoding2();
+        printEven();
     }
 
     // 문자열에서 문자 출력
@@ -87,6 +88,21 @@ public class StringIterator {
         sb.append(cnt);
 
         System.out.println(sb.length());
+        System.out.println(sb);
+    }
+
+    // 짝수번째만 출력
+    //
+    public static void printEven() {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.next();
+        int len = str.length();
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = len-1; i>0; i--){
+            if(i % 2 != 0) sb.append(str.charAt(i));
+        }
+
         System.out.println(sb);
     }
 }
