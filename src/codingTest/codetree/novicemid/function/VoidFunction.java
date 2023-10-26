@@ -6,7 +6,8 @@ public class VoidFunction {
 
     public static void main(String[] args) {
 //        printStar();
-        commonFactor();
+//        commonFactor();
+        findLcmPractice();
     }
 
     public static void printStar10(){
@@ -52,6 +53,26 @@ public class VoidFunction {
         int n = sc.nextInt();
         int m = sc.nextInt();
         findGcd(n, m);
+    }
+
+    // 최소 공배수
+    public static void findLcm(int n, int m){
+        int idx = Math.max(n,m);
+        while(true){
+            if(idx % n == 0 && idx % m ==0){
+                System.out.println(idx);
+                break;
+            }
+            idx++;
+        }
+    }
+
+    // 최소 공배수
+    public static void findLcmPractice(){
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        findLcm(a,b);
     }
 
 
