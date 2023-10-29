@@ -10,7 +10,8 @@ public class ReturnFunction {
 //        calculator();
 //        prime();
 //        sequenceNumber();
-        isDatePresent();
+//        isDatePresent();
+        thisSeason();
     }
 
     public static int sumNumber(int number){
@@ -197,5 +198,45 @@ public class ReturnFunction {
         else if(month == 4 || month == 6 || month == 9 || month == 11)
             return 30;
         return 31;
+    }
+
+    // 그 계절 그 날
+    // 149ms 10MB
+    public static void thisSeason(){
+        Scanner sc = new Scanner(System.in);
+        int year = sc.nextInt();
+        int month = sc.nextInt();
+        int day = sc.nextInt();
+
+        // 유효한 일자 구하기
+        System.out.println(printSeason(year, month, day));
+    }
+
+    private static String printSeason(int year, int month, int day) {
+        if(isDatePresent2(year, month) >= day){
+            switch(month){
+                case(3) : case(4) : case(5) : return "Spring";
+                case(6) : case(7) : case(8) : return "Summer";
+                case(9) : case(10) : case(11) : return "Fall";
+                default : return "Winter";
+            }
+        }
+        else return "-1";
+    }
+
+    private static int isDatePresent2(int year, int month) {
+        if(month == 4 || month == 6 || month == 9 || month == 11) return 30;
+        else if(month == 2){
+            if(isLeapYear1(year)) return 29;
+            else return 28;
+        }
+        return 31;
+    }
+
+    private static boolean isLeapYear1(int year) {
+        if(year % 400 == 0) return true;
+        else if(year % 100 == 0) return false;
+        else if(year % 4 == 0) return true;
+        return false;
     }
 }
