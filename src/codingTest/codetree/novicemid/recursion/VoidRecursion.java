@@ -1,4 +1,4 @@
-package src.codingTest.codetree.novicemid.function;
+package src.codingTest.codetree.novicemid.recursion;
 
 import java.util.Scanner;
 
