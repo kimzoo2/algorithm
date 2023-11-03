@@ -11,7 +11,9 @@ public class ReturnRecursion {
 //        countRecursion();
 //        fibonacci();
 //        max();
-        weirdSequence();
+//        weirdSequence();
+        LCM();
+//        getLCM();
     }
     // 기본문제 : 1부터 특정 수까지의 합
     // 143ms 10MB
@@ -118,6 +120,37 @@ public class ReturnRecursion {
         if(num == 1) return 1;
         if(num == 2) return 2;
         return weirdSequence(num/3) + weirdSequence(num -1);
+    }
+
+    public static final int MAX_N = 10;
+    public static int n;
+    public static int[] arr = new int[MAX_N + 1];
+
+    // 재귀함수를 이용한 최소공배수
+    // 92ms 8MB
+    public static void LCM() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+        String str = br.readLine();
+        String[] strArr = str.split(" ");
+        for (int i = 1; i <= n; i++) {
+            arr[i] = Integer.parseInt(strArr[i-1]);
+        }
+        System.out.println(LCM(n));
+    }
+
+    public static int LCM(int index){
+        if(index == 1) return arr[1];
+        return findLCM(LCM(index-1), arr[index]);
+    }
+
+    public static int findLCM(int a, int b){
+        int gcd = 1; // 최대공약수
+        for(int i = 1; i <= Math.min(a, b); i++) {
+            if(a % i == 0 && b % i == 0)
+                gcd = i;
+        }
+        return a * b / gcd;
     }
 }
 
