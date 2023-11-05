@@ -3,6 +3,7 @@ package src.codingTest.codetree.novicemid.sorting;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Locale;
 
 public class NormalSort {
     public static void main(String[] args) throws IOException {
@@ -10,7 +11,10 @@ public class NormalSort {
 //        sortString();
 //        findTopK();
 //        compareArray();
-        grouping();
+//        grouping();
+//        compareWords();
+//        findString();
+        calculateMid();
     }
 
     // 오름 내림차순 정렬
@@ -146,4 +150,80 @@ public class NormalSort {
         System.out.println(result);
     }
 
+    //순서를 바꾸었을 때 같은 단어인지 판별하기
+    public static void compareWords() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String a = br.readLine();
+        String b = br.readLine();
+
+        char[] aArr = a.toCharArray();
+        char[] bArr = b.toCharArray();
+
+        Arrays.sort(aArr);
+        Arrays.sort(bArr);
+        int aLength = aArr.length;
+        int bLength = bArr.length;
+
+        // a와 b의 자릿수가 다르면 다른 단어다.
+
+        System.out.println(compareWords(aArr, bArr) ? "Yes" : "No");
+    }
+
+    public static boolean compareWords(char[] aArr, char[] bArr){
+        int aLength = aArr.length;
+        int bLength = bArr.length;
+
+        if(aLength != bLength) return false;
+
+        for (int i = 0; i < aLength; i++) {
+            if(aArr[i] != bArr[i]) return false;
+        }
+        return true;
+    }
+
+    // k번째로 신기한 문자열
+    // 94ms 9MB
+    public static void findString() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String input = br.readLine();
+        String[] s = input.split(" ");
+        int n = Integer.parseInt(s[0]);
+        int k = Integer.parseInt(s[1]);
+        String target = s[2];
+        String[] strArr = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            strArr[i] = br.readLine();
+        }
+
+        Arrays.sort(strArr);
+
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+            if(strArr[i].startsWith(target)){
+                cnt++;
+            }
+            if(cnt == k){
+                System.out.println(strArr[i]);
+                break;
+            }
+        }
+    }
+
+    //중앙값 계산
+    // 89ms 8MB
+    public static void calculateMid() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int cnt = Integer.parseInt(br.readLine());
+        String str = br.readLine();
+        String[] split = str.split(" ");
+        int[] arr = new int[cnt];
+        for (int i = 0; i < cnt; i++) {
+            arr[i] = Integer.parseInt(split[i]);
+            if(i % 2 == 0){ // 짝수가 문제 기준 홀수임
+                Arrays.sort(arr, 0, i+1);
+                System.out.print(arr[i/2] + " ");
+            }
+        }
+    }
 }
